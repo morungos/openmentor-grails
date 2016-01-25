@@ -1,0 +1,7 @@
+---
+- hosts: all
+  roles:
+    - { role: database, tags: [ 'database' ] }
+    - { role: java, tags: [ 'java' ] }
+    - { role: webapp, tags: [ 'webapp' ] }
+    - { role: service, tags: [ 'webapp' ] }
