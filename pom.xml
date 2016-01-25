@@ -559,6 +559,11 @@
 											<!-- Turn off signing for now, until we move to a continuous integration server -->
 											<arg value="-us" />
 											<arg value="-uc" />
+
+											<arg value="--lintian-opts" />
+
+											<arg value="--profile" />
+											<arg value="debian" />
 										</exec>
 									</target>
 								</configuration>
