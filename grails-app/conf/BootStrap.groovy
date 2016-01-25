@@ -14,9 +14,9 @@ import org.apache.log4j.Logger
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 class BootStrap {
-    
+
     static final Logger log = Logger.getLogger(this)
-    
+
     def grailsApplication
     def springSecurityService
 	def courseInfoService
@@ -27,50 +27,45 @@ class BootStrap {
         DataSourceUtils.tune(servletContext)
 
         seedUserData()
-        
-//        switch (Environment.current) {
-//            
-//            case Environment.DEVELOPMENT:
-//                seedTestData()
-//                break;
-//            
-//            case Environment.TEST:
-//                seedTestData()
-//                break;
-//            
-//            case Environment.PRODUCTION:
-//                break;
-//        }
-        
-        initializeConfiguration()
 
-        File testDataFile = new File("test/resources/full.zip")
-        SpringSecurityUtils.doWithAuth("admin") { 
-            def uploads = bulkUploadService.upload(testDataFile)
+        switch (Environment.current) {
+
+            case Environment.DEVELOPMENT:
+                seedTestData()
+                break;
+
+            case Environment.TEST:
+                seedTestData()
+                break;
+
+            case Environment.PRODUCTION:
+                break;
         }
+
+        initializeConfiguration()
 
     }
 
     def destroy = {
     }
-    
+
     /**
-     * Initializes the user data, ensuring that all required roles exist, and that an 
+     * Initializes the user data, ensuring that all required roles exist, and that an
      * user "admin" exists if it doesn't already. It is initially created with a password
-     * "admin", that probably ought to be changed. That probably requires an interface. 
+     * "admin", that probably ought to be changed. That probably requires an interface.
      */
     private void seedUserData() {
-        
+
         def userRole = Role.findByAuthority('ROLE_OPENMENTOR-USER') ?: new Role(authority: 'ROLE_OPENMENTOR-USER').save(failOnError: true)
         def adminRole = Role.findByAuthority('ROLE_OPENMENTOR-ADMIN') ?: new Role(authority: 'ROLE_OPENMENTOR-ADMIN').save(failOnError: true)
-		
+
 		def encodedPassword = springSecurityService.encodePassword('admin')
         def adminUser = User.findByUsername('admin') ?: new User(
             username: 'admin',
             password: encodedPassword,
 			confirm: encodedPassword,
             enabled: true).save(failOnError: true)
-			
+
 		if (! adminUser.authorities.contains(userRole)) {
 			UserRole.create adminUser, userRole
 		}
@@ -84,7 +79,7 @@ class BootStrap {
 			password: encodedUserPassword,
 			confirm: encodedUserPassword,
 			enabled: true).save(failOnError: true)
-            
+
 		if (! userUser.authorities.contains(userRole)) {
 			UserRole.create userUser, userRole
 		}
@@ -95,20 +90,20 @@ class BootStrap {
 			password: encodedOtherUserPassword,
 			confirm: encodedOtherUserPassword,
 			enabled: true).save(failOnError: true)
-            
+
 		if (! otherUserUser.authorities.contains(userRole)) {
 			UserRole.create otherUserUser, userRole
 		}
     }
-    
+
     /**
-     * When run in test or development mode, create a few courses, students, and 
-     * tutors, ready to test out the rest of the system. 
+     * When run in test or development mode, create a few courses, students, and
+     * tutors, ready to test out the rest of the system.
      */
     private void seedTestData() {
         // Seed only when there's no data
         if (Course.count() == 0) {
-            
+
             def courseCM2006 = new Course(courseId: "CM2006", courseTitle: "Interface Design").save(failOnError:true)
             def courseCM2007 = new Course(courseId: "CM2007", courseTitle: "Intranet Systems Development").save(failOnError:true)
             def courseCM3010 = new Course(courseId: "CM3010", courseTitle: "Information Retrieval").save(failOnError:true)
@@ -116,7 +111,7 @@ class BootStrap {
 
             def courseCMM511u = new Course(owner: "user", courseId: "CMM511", courseTitle: "Information Retrieval Systems").save(failOnError:true)
 			def courseCMM511o = new Course(owner: "other", courseId: "CMM511", courseTitle: "Information Retrieval Systems").save(failOnError:true)
-			
+
             def student09000231 = new Student(studentId: "09000231", givenName: "Gwenda", familyName: "Blane")
             student09000231.addToCourses(courseCM2006)
 			student09000231.addToCourses(courseCM2007)
@@ -178,47 +173,47 @@ class BootStrap {
 			tutorM4000063.addToCourses(courseCM2006)
 			tutorM4000063.addToCourses(courseCM3010)
             tutorM4000063.save(failOnError:true)
-            
+
             def tutorM4000064u = new Tutor(owner: "user", tutorId: "M4000064", givenName: "Monroe", familyName: "Taing")
 			tutorM4000064u.addToCourses(courseCMM511u)
 			tutorM4000064u.save(failOnError:true)
-            
+
             def tutorM4000064o = new Tutor(owner: "other", tutorId: "M4000064", givenName: "Monroe", familyName: "Marilyn")
 			tutorM4000064o.addToCourses(courseCMM511o)
 			tutorM4000064o.save(failOnError:true)
-            
+
 			courseCM2006.addToAssignments(new Assignment(code: "TMA01")).save(failOnError:true)
 			courseCM2006.addToAssignments(new Assignment(code: "TMA02")).save(failOnError:true)
 			courseCM2006.addToAssignments(new Assignment(code: "TMA03")).save(failOnError:true)
 			courseCM2007.addToAssignments(new Assignment(code: "TMA01")).save(failOnError:true)
 			courseCM3010.addToAssignments(new Assignment(code: "TMA01")).save(failOnError:true)
 			courseAA1003.addToAssignments(new Assignment(code: "TMA01")).save(failOnError:true)
-			
-			courseCMM511u.addToAssignments(new Assignment(owner: "user", code: "TMA01")).save(failOnError:true)			
-			courseCMM511u.addToAssignments(new Assignment(owner: "user", code: "TMA02")).save(failOnError:true)			
-			courseCMM511o.addToAssignments(new Assignment(owner: "other", code: "TMA01")).save(failOnError:true)			
-			courseCMM511o.addToAssignments(new Assignment(owner: "other", code: "TMA02")).save(failOnError:true)			
+
+			courseCMM511u.addToAssignments(new Assignment(owner: "user", code: "TMA01")).save(failOnError:true)
+			courseCMM511u.addToAssignments(new Assignment(owner: "user", code: "TMA02")).save(failOnError:true)
+			courseCMM511o.addToAssignments(new Assignment(owner: "other", code: "TMA01")).save(failOnError:true)
+			courseCMM511o.addToAssignments(new Assignment(owner: "other", code: "TMA02")).save(failOnError:true)
         }
     }
-    
-    
+
+
    /**
     * Called at boot time, and possibly at other times, to set up the configuration.
     * Primarily, this reads configuration data from wherever, and creates the
     * database tables that are needed to do sensible calculations.
-    * 
+    *
     * NOTE: This doesn't change existing grades and categories. It is best to delete
     * them all before starting. Since submissions and comments key into the existing
-    * grades and categories, mucking about with them is going to be an issue. 
+    * grades and categories, mucking about with them is going to be an issue.
     */
     private void initializeConfiguration() {
-		
+
 		// Initialises the training mode, which will be default be set to false.
 		Boolean trainingMode = grailsApplication.config.openmentor?.trainingMode
 		if (trainingMode != null) {
 			courseInfoService.trainingMode = trainingMode
 		}
-                
+
         List<String> grades = grailsApplication.config.openmentor.grades
         grades.each { value ->
             if (Grade.get(value) == null) {
@@ -226,18 +221,18 @@ class BootStrap {
                 instance.save(insert: true, failOnError: true, flush: true)
             }
         }
-       
-        Map<String, String> categoryBands = grailsApplication.config.openmentor.categoryBands       
+
+        Map<String, String> categoryBands = grailsApplication.config.openmentor.categoryBands
         categoryBands.each { key, value ->
             if (Category.get(key) == null) {
                 Category instance = new Category(id: key, band: value)
                 instance.save(insert: true, failOnError: true, flush: true)
             }
         }
-     
+
         // Nothing keys off weights, and they are more likely to change
         Weight.executeUpdate("delete Weight w")
-        
+
         Map<String, Map<String, Double>> weights = grailsApplication.config.openmentor.weights
         weights.each { grade, values ->
             values.each { band, weight ->
