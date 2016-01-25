@@ -15,28 +15,19 @@ hibernate {
 environments {
     development {
         dataSource {
-            url = "jdbc:mysql://localhost/bethany?useUnicode=yes&characterEncoding=UTF-8"
-            dialect = org.hibernate.dialect.MySQL5InnoDBDialect
-            driverClassName = "com.mysql.jdbc.Driver"
-            username = 'root'
-            password = ''
-            dbCreate = 'update'
+            dbCreate = "create-drop"
+            url = "jdbc:h2:mem:devDB;DB_CLOSE_ON_EXIT=FALSE"
         }
     }
     test {
         dataSource {
-            url = "jdbc:mysql://localhost/bethany?characterEncoding=UTF-8"
-            driverClassName = "com.mysql.jdbc.Driver"
-            dbCreate = "update" // one of 'create', 'create-drop','update'
+            dbCreate = "create-drop"
+            url = "jdbc:h2:mem:testDB;DB_CLOSE_ON_EXIT=FALSE"
         }
     }
     production {
         dataSource {
-            url = "jdbc:mysql://localhost/openmentor?characterEncoding=UTF-8"
-			driverClassName = "com.mysql.jdbc.Driver"
-            dbCreate = "update"
-	        username='root'
-   	        password=''
+            jndiName = "java:comp/env/jdbc/openmentorDatabase"
         }
     }
 }
