@@ -318,6 +318,29 @@
 			</plugin>
 
 			<plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>2.7</version>
+        <executions>
+          <execution>
+            <id>copy-config-resources</id>
+            <phase>generate-resources</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${basedir}/target/generated-etc</outputDirectory>
+              <resources>
+                <resource>
+                  <directory>src/main/conf</directory>
+                  <filtering>true</filtering>
+              	</resource>
+              </resources>
+            </configuration>
+          </execution>
+        </executions>
+			</plugin>
+
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>rpm-maven-plugin</artifactId>
 				<version>2.1-alpha-1</version>
