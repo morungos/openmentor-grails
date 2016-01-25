@@ -17,6 +17,7 @@
 
 	<properties>
 		<grails.version>2.2.4</grails.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<licenses>
@@ -243,6 +244,16 @@
 		<pluginManagement />
 
 		<plugins>
+
+			<plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.2</version>
+        <configuration>
+            <source>1.7</source>
+            <target>1.7</target>
+        </configuration>
+      </plugin>
+
 			<!-- Disables the Maven surefire plugin for Grails applications, as we
 				have our own test runner -->
 			<plugin>
