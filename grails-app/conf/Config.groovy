@@ -51,7 +51,7 @@ grails.spring.bean.packages = []
 // request parameters to mask when logging exceptions
 grails.exceptionresolver.params.exclude = ['password']
 
-grails.config.locations = [ 
+grails.config.locations = [
 	"classpath:${appName}-config.properties",
 	"classpath:${appName}-config.groovy",
 	"file:/etc/${appName}/${appName}-config.properties",
@@ -63,7 +63,7 @@ grails.config.locations = [
 // set per-environment serverURL stem for creating absolute links
 environments {
     production {
-        grails.serverURL = "http://openmentor.cloudfoundry.com"
+        grails.serverURL = "http://localhost"
     }
     development {
         grails.serverURL = "http://localhost:8080/${appName}"
@@ -79,18 +79,18 @@ def applicationName = appName
 
 // log4j configuration
 log4j = {
-	
+
 	appenders {
 		console name: "stdout",
 				layout: pattern(conversionPattern: "%r [%t] %p %c %x - %m%n")
 	}
-	
+
 	root {
 		debug 'stdout'
 	}
-	
+
 	//debug  'org.hibernate.hql.ast.QueryTranslatorImpl'
-    
+
 	info   'grails.app',
 	       'uk.org.openmentor'
 
@@ -100,7 +100,7 @@ log4j = {
 	       'org.springframework',
 		   'org.hibernate',
            'org.eclipse'
-		   
+
 	error  'net.sf.ehcache',
 		   'org.codehaus.groovy.grails',
 		   'org.springframework.aop',
@@ -134,11 +134,11 @@ grails.plugins.springsecurity.authority.className = 'uk.org.openmentor.auth.Role
 //grails.plugins.springsecurity.ldap.authenticator.useBind = false
 //grails.plugins.springsecurity.providerNames = ['ldapAuthProvider', 'daoAuthenticationProvider']
 
-// This exploits the significantly more flexible handling of types in Grails to 
-// allow configuration down to the grading scheme. 
+// This exploits the significantly more flexible handling of types in Grails to
+// allow configuration down to the grading scheme.
 openmentor {
 	trainingMode = true
-	
+
 	grades = [
 		"A", "B", "C", "D", "E", "F", "G"
 	]
@@ -152,7 +152,7 @@ openmentor {
 		"A": "Positive comments",
 		"B": "Teaching points",
 		"C": "Questions",
-		"D": "Negative comments"	
+		"D": "Negative comments"
 	]
 	categoryBands = [
 		"A1": "A",
