@@ -30,7 +30,7 @@
                   <g:hasErrors bean="${assignmentInstance}" field="code">
                     <g:renderErrors bean="${assignmentInstance}" as="list" field="code"/>
                   </g:hasErrors>
-                  <g:textField name="code" value="${assignmentInstance?.code}" placeholder="Code" />
+                  <g:textField name="code" class="form-control" value="${assignmentInstance?.code}" placeholder="Code" />
                 </div>
               </div>
               <div class="control-group">
@@ -39,7 +39,7 @@
                   <g:hasErrors bean="${assignmentInstance}" field="title">
                     <g:renderErrors bean="${assignmentInstance}" as="list" field="title"/>
                   </g:hasErrors>
-                  <g:textField name="title" value="${assignmentInstance?.title}" placeholder="Title" />
+                  <g:textField name="title" class="form-control" value="${assignmentInstance?.title}" placeholder="Title" />
                 </div>
               </div>
               <div class="control-group">

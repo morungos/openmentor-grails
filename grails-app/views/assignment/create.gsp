@@ -19,13 +19,13 @@
               <div class="control-group">
                 <label class="control-label" for="courseId"><g:message code="assignment.courseId.label" default="Course Code" />:</label>
                 <div class="controls">
-                  <g:textField name="courseId" value="${courseInstance.courseId}" readonly="readonly" />
+                  <g:textField name="courseId" class="form-control" value="${courseInstance.courseId}" readonly="readonly" />
                 </div>
               </div>
               <div class="control-group ${hasErrors(bean: assignmentInstance, field: 'code', 'error')}">
                 <label class="control-label" for="code"><g:message code="assignment.code.label" default="Assignment Code" />:</label>
                 <div class="controls">
-                  <g:textField name="code" value="${assignmentInstance?.code}" placeholder="Assignment Code" />
+                  <g:textField name="code" class="form-control" value="${assignmentInstance?.code}" placeholder="Assignment Code" />
                   <g:hasErrors bean="${assignmentInstance}" field="code">
                     <span class="help-inline"><g:renderErrors bean="${assignmentInstance}" as="list" field="code"/></span>
                   </g:hasErrors>
@@ -34,7 +34,7 @@
               <div class="control-group ${hasErrors(bean: assignmentInstance, field: 'title', 'error')}">
                 <label class="control-label" for="title"><g:message code="assignment.title.label" default="Assignment Title" />:</label>
                 <div class="controls">
-                  <g:textField name="title" value="${assignmentInstance?.title}" placeholder="Assignment Title" />
+                  <g:textField name="title" class="form-control" value="${assignmentInstance?.title}" placeholder="Assignment Title" />
                   <g:hasErrors bean="${assignmentInstance}" field="title">
                     <span class="help-inline"><g:renderErrors bean="${assignmentInstance}" as="list" field="title"/></span>
                   </g:hasErrors>

@@ -20,22 +20,22 @@
                 <g:renderErrors bean="${sub}" as="list" />
             </div>
             </g:hasErrors>
-            
+
             <g:uploadForm action="save" method="post" class="form-horizontal">
               <div class="control-group  ${hasErrors(bean: cmd, field: 'courseId', 'errors')}">
                 <label class="control-label" for="courseId"><g:message code="course.courseId.label" default="Course ID" />:</label>
                 <div class="controls">
-                  <g:textField name="courseId" value="${courseInstance.courseId}" readonly="readonly" />
+                  <g:textField name="courseId" class="form-control" value="${courseInstance.courseId}" readonly="readonly" />
                 </div>
               </div>
               <div class="control-group ${hasErrors(bean: cmd, field: 'assignmentId', 'error')}">
                 <label class="control-label" for="assignment"><g:message code="assignment.label" default="Assignment" />:</label>
                 <div class="controls">
-                  <g:select 
+                  <g:select
                     noSelection="['':'-Choose assignment-']"
-                    name="assignmentId" 
-                    from="${assignmentsList}" 
-                    optionKey="id" 
+                    name="assignmentId"
+                    from="${assignmentsList}"
+                    optionKey="id"
                     value="${cmd?.assignmentId}"
                     optionValue="code" />
                   <g:hasErrors bean="${cmd}" field="assignmentId">
@@ -46,7 +46,7 @@
               <div class="control-group ${hasErrors(bean: cmd, field: 'dataFile', 'error')}">
                 <label class="control-label" for="dataFile"><g:message code="assignment.dataFile.label" default="File" />:</label>
                 <div class="controls">
-                  <input type="file" name="dataFile" id="file" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+                  <input type="file" class="form-control" name="dataFile" id="file" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
                   <span class="help-block">Word files of all types are supported, maximum size is 16Mb</span>
                   <g:hasErrors bean="${cmd}" field="dataFile">
                   <span class="help-inline"><g:renderErrors bean="${cmd}" as="list" field="dataFile"/></span>
@@ -56,9 +56,10 @@
               <div class="control-group ${hasErrors(bean: cmd, field: 'grade', 'error')}">
                 <label class="control-label" for="grade"><g:message code="assignment.grade.label" default="Marks category given" />:</label>
                 <div class="controls">
-                  <g:select 
+                  <g:select
                     noSelection="['':'-Choose grade-']"
-                    name="grade" 
+                    class="form-control"
+                    name="grade"
                     value="${cmd?.grade}"
                     from="${grades}" />
                   <g:hasErrors bean="${cmd}" field="grade">
@@ -69,12 +70,13 @@
               <div class="control-group ${hasErrors(bean: cmd, field: 'tutorIds', 'error')}">
                 <label class="control-label" for="tutorIds"><g:message code="default.tutor.label" default="Tutor" />:</label>
                 <div class="controls">
-                  <g:select 
+                  <g:select
                     noSelection="['':'-Choose tutor-']"
-                    name="tutorIds" 
-                    from="${courseInstance.tutors}" 
+                    name="tutorIds"
+                    class="form-control"
+                    from="${courseInstance.tutors}"
                     value="${cmd?.tutorIds}"
-                    optionKey="tutorId" 
+                    optionKey="tutorId"
                     optionValue="idAndName" />
                   <g:hasErrors bean="${cmd}" field="tutorIds">
                   <span class="help-inline"><g:renderErrors bean="${cmd}" as="list" field="tutorIds"/></span>
@@ -84,12 +86,13 @@
               <div class="control-group ${hasErrors(bean: cmd, field: 'studentIds', 'error')}">
                 <label class="control-label" for="studentIds"><g:message code="default.student.label" default="Student" />:</label>
                 <div class="controls">
-                  <g:select 
+                  <g:select
 	                 noSelection="['':'-Choose student-']"
-	                 name="studentIds" 
-	                 from="${courseInstance.students}" 
+	                 name="studentIds"
+                   class="form-control" 
+	                 from="${courseInstance.students}"
 	                 value="${cmd?.studentIds}"
-	                 optionKey="studentId" 
+	                 optionKey="studentId"
 	                 optionValue="idAndName" />
                   <g:hasErrors bean="${cmd}" field="studentIds">
                   <span class="help-inline"><g:renderErrors bean="${cmd}" as="list" field="studentIds"/></span>

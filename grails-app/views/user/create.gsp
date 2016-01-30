@@ -24,7 +24,7 @@
               <div class="control-group ${hasErrors(bean: userInstance, field: 'username', 'error')}">
                 <label class="control-label" for="username"><g:message code="user.username.label" default="Username" />:</label>
                 <div class="controls">
-                  <g:textField name="username" value="${userInstance?.username}" placeholder="Username" />
+                  <g:textField name="username" class="form-control" value="${userInstance?.username}" placeholder="Username" />
                   <g:hasErrors bean="${userInstance}" field="username">
                     <span class="help-inline"><g:renderErrors bean="${userInstance}" as="list" field="username"/></span>
                   </g:hasErrors>
@@ -33,7 +33,7 @@
               <div class="control-group ${hasErrors(bean: userInstance, field: 'password', 'error')}">
                 <label class="control-label" for="password"><g:message code="user.password.label" default="Password" />:</label>
                 <div class="controls">
-                  <g:passwordField name="password" placeholder="Password" />
+                  <g:passwordField name="password" class="form-control" placeholder="Password" />
                   <g:hasErrors bean="${userInstance}" field="password">
                     <span class="help-inline"><g:renderErrors bean="${userInstance}" as="list" field="password"/></span>
                   </g:hasErrors>
@@ -42,7 +42,7 @@
               <div class="control-group ${hasErrors(bean: userInstance, field: 'confirm', 'error')}">
                 <label class="control-label" for="confirm"><g:message code="user.confirm.label" default="Verify" />:</label>
                 <div class="controls">
-                  <g:passwordField name="confirm" placeholder="Verify" />
+                  <g:passwordField name="confirm" class="form-control" placeholder="Verify" />
                   <g:hasErrors bean="${userInstance}" field="confirm">
                     <span class="help-inline"><g:renderErrors bean="${userInstance}" as="list" field="confirm"/></span>
                   </g:hasErrors>
@@ -53,8 +53,9 @@
                 <div class="controls">
                   <g:each in="${availableRoles}" status="i" var="availableRole">
                     <label class="checkbox">
-                      <g:checkBox id="${'role_' + availableRole}" 
-                        name="${'role_' + availableRole}" 
+                      <g:checkBox id="${'role_' + availableRole}"
+                        name="${'role_' + availableRole}"
+                        class="form-control" 
                         value="${availableRole}"
                         disabled="${availableRole == 'ROLE_OPENMENTOR-USER'}"
                         checked="${availableRole == 'ROLE_OPENMENTOR-USER'}" />

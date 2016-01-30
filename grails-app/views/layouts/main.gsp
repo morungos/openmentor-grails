@@ -64,12 +64,12 @@
                   Logged in as <sec:username/> <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu">
-                  <li><g:link controller='logout' class='navbar-link'>Logout</g:link></li>
+                  <li><g:link controller='logout'>Logout</g:link></li>
                 </ul>
               </li>
             </sec:ifLoggedIn>
             <sec:ifNotLoggedIn>
-              <li><g:link controller='login' class='navbar-link'>Log in</g:link></li>
+              <li><g:link controller='login'>Log in</g:link></li>
             </sec:ifNotLoggedIn>
           </ul>
         </div>

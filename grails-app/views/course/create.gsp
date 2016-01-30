@@ -19,7 +19,7 @@
               <div class="control-group ${hasErrors(bean: courseInstance, field: 'courseId', 'error')}">
                 <label class="control-label" for="courseId"><g:message code="course.courseId.label" default="Course Code" />:</label>
                 <div class="controls">
-                  <g:textField name="courseId" value="${courseInstance?.courseId}" placeholder="Code" />
+                  <g:textField name="courseId" class="form-control" value="${courseInstance?.courseId}" placeholder="Code" />
                   <g:hasErrors bean="${courseInstance}" field="courseId">
                     <span class="help-inline"><g:renderErrors bean="${courseInstance}" as="list" field="courseId"/></span>
                   </g:hasErrors>
@@ -28,7 +28,7 @@
               <div class="control-group ${hasErrors(bean: courseInstance, field: 'courseTitle', 'error')}">
                 <label class="control-label" for="courseTitle"><g:message code="course.courseTitle.label" default="Course Title" />:</label>
                 <div class="controls">
-                  <g:textField name="courseTitle" value="${courseInstance?.courseTitle}" placeholder="Course Title" />
+                  <g:textField name="courseTitle" class="form-control" value="${courseInstance?.courseTitle}" placeholder="Course Title" />
                   <g:hasErrors bean="${courseInstance}" field="courseTitle">
                     <span class="help-inline"><g:renderErrors bean="${courseInstance}" as="list" field="courseTitle"/></span>
                   </g:hasErrors>
