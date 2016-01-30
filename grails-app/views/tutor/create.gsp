@@ -13,36 +13,36 @@
             <div class="message">${flash.message}</div>
             </g:if>
             <g:form action="save" method="post" class="form-horizontal">
-              <div class="control-group ${hasErrors(bean: tutorInstance, field: 'tutorId', 'error')}">
-                <label class="control-label" for="tutorId"><g:message code="tutor.tutorId.label" default="Tutor ID " />:</label>
-                <div class="controls">
+              <div class="form-group ${hasErrors(bean: tutorInstance, field: 'tutorId', 'error')}">
+                <label class="control-label col-sm-2" for="tutorId"><g:message code="tutor.tutorId.label" default="Tutor ID " />:</label>
+                <div class="col-sm-10">
                   <g:textField name="tutorId" class="form-control" value="${tutorInstance?.tutorId}" placeholder="Tutor ID" />
                   <g:hasErrors bean="${tutorInstance}" field="tutorId">
                     <span class="help-inline"><g:renderErrors bean="${tutorInstance}" as="list" field="tutorId"/></span>
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group ${hasErrors(bean: tutorInstance, field: 'givenName', 'error')}">
-                <label class="control-label" for="givenName"><g:message code="tutor.givenName.label" default="Given Name" />:</label>
-                <div class="controls">
+              <div class="form-group ${hasErrors(bean: tutorInstance, field: 'givenName', 'error')}">
+                <label class="control-label col-sm-2" for="givenName"><g:message code="tutor.givenName.label" default="Given Name" />:</label>
+                <div class="col-sm-10">
                   <g:textField name="givenName" class="form-control" value="${tutorInstance?.givenName}" placeholder="Given Name" />
                   <g:hasErrors bean="${tutorInstance}" field="givenName">
                     <span class="help-inline"><g:renderErrors bean="${tutorInstance}" as="list" field="givenName"/></span>
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group ${hasErrors(bean: tutorInstance, field: 'familyName', 'error')}">
-                <label class="control-label" for="familyName"><g:message code="tutor.familyName.label" default="Family Name" />:</label>
-                <div class="controls">
+              <div class="form-group ${hasErrors(bean: tutorInstance, field: 'familyName', 'error')}">
+                <label class="control-label col-sm-2" for="familyName"><g:message code="tutor.familyName.label" default="Family Name" />:</label>
+                <div class="col-sm-10">
                   <g:textField name="familyName" class="form-control" value="${tutorInstance?.familyName}" placeholder="Family Name" />
                   <g:hasErrors bean="${tutorInstance}" field="familyName">
                     <span class="help-inline"><g:renderErrors bean="${tutorInstance}" as="list" field="familyName"/></span>
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group ${hasErrors(bean: tutorInstance, field: 'courses', 'error')}">
-                <label class="control-label" for="courses"><g:message code="tutor.courses.label" default="Courses" />:</label>
-                <div class="controls">
+              <div class="form-group ${hasErrors(bean: tutorInstance, field: 'courses', 'error')}">
+                <label class="control-label col-sm-2" for="courses"><g:message code="tutor.courses.label" default="Courses" />:</label>
+                <div class="col-sm-10">
                   <g:select id="courses" class="form-control" name="courses" optionKey="id" optionValue="courseId" multiple="${true}" class="chzn-select"
 		                    from="${courseList}"
 		                    value="${tutorInstance?.courses}"/>
@@ -51,8 +51,8 @@
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group">
-                <div class="controls">
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
                   <g:submitButton class="save btn btn-primary" name="create" value="${message(code: 'default.button.create.label', default: 'Create')}" />
                 </div>
               </div>

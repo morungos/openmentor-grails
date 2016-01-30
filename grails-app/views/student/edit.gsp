@@ -18,46 +18,46 @@
             <g:form action="update" method="post" class="form-horizontal">
               <g:hiddenField name="id" value="${studentInstance?.id}" />
               <g:hiddenField name="version" value="${studentInstance?.version}" />
-              <div class="control-group ${hasErrors(bean: studentInstance, field: 'studentId', 'error')}">
-                <label class="control-label" for="studentId"><g:message code="student.studentId.label" default="Student ID " />:</label>
-                <div class="controls">
+              <div class="form-group ${hasErrors(bean: studentInstance, field: 'studentId', 'error')}">
+                <label class="control-label col-sm-2" for="studentId"><g:message code="student.studentId.label" default="Student ID " />:</label>
+                <div class="col-sm-10">
                   <g:textField name="studentId" value="${studentInstance?.studentId}" placeholder="Student ID" />
                   <g:hasErrors bean="${studentInstance}" field="studentId">
                     <span class="help-inline"><g:renderErrors bean="${studentInstance}" as="list" field="studentId"/></span>
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group ${hasErrors(bean: studentInstance, field: 'givenName', 'error')}">
-                <label class="control-label" for="givenName"><g:message code="student.givenName.label" default="Given Name" />:</label>
-                <div class="controls">
+              <div class="form-group ${hasErrors(bean: studentInstance, field: 'givenName', 'error')}">
+                <label class="control-label col-sm-2" for="givenName"><g:message code="student.givenName.label" default="Given Name" />:</label>
+                <div class="col-sm-10">
                   <g:textField name="givenName" value="${studentInstance?.givenName}" placeholder="Given Name" />
                   <g:hasErrors bean="${studentInstance}" field="givenName">
                     <span class="help-inline"><g:renderErrors bean="${studentInstance}" as="list" field="givenName"/></span>
                   </g:hasErrors>
                 </div>
-              </div>              
-              <div class="control-group ${hasErrors(bean: studentInstance, field: 'familyName', 'error')}">
-                <label class="control-label" for="familyName"><g:message code="student.familyName.label" default="Family Name" />:</label>
-                <div class="controls">
+              </div>
+              <div class="form-group ${hasErrors(bean: studentInstance, field: 'familyName', 'error')}">
+                <label class="control-label col-sm-2" for="familyName"><g:message code="student.familyName.label" default="Family Name" />:</label>
+                <div class="col-sm-10">
                   <g:textField name="familyName" value="${studentInstance?.familyName}" placeholder="Family Name" />
                   <g:hasErrors bean="${studentInstance}" field="familyName">
                     <span class="help-inline"><g:renderErrors bean="${studentInstance}" as="list" field="familyName"/></span>
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group ${hasErrors(bean: studentInstance, field: 'courses', 'error')}">
-                <label class="control-label" for="courses"><g:message code="student.courses.label" default="Courses" />:</label>
-                <div class="controls">
+              <div class="form-group ${hasErrors(bean: studentInstance, field: 'courses', 'error')}">
+                <label class="control-label col-sm-2" for="courses"><g:message code="student.courses.label" default="Courses" />:</label>
+                <div class="col-sm-10">
                   <g:select id="courses" name="courses" optionKey="id" optionValue="courseId" multiple="${true}" class="chzn-select"
-                            from="${courseList}" 
+                            from="${courseList}"
                             value="${studentInstance?.courses}"/>
                   <g:hasErrors bean="${studentInstance}" field="courses">
                     <span class="help-inline"><g:renderErrors bean="${studentInstance}" as="list" field="courses"/></span>
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group">
-                <div class="controls">
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
                   <g:submitButton class="save btn btn-primary" name="save" value="${message(code: 'default.button.save.label', default: 'Save')}" />
                 </div>
               </div>
