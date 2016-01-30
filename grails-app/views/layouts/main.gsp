@@ -142,17 +142,17 @@
             </div>
             <div>
                 <div class="col-sm-4">
-                  <h5>turalt</h5>
+                  <h5>Sponsored by <a href="https://turalt.com">turalt</a></h5>
                   <p>
-                    Copyright &copy; 2015. All rights reserved<br>
-                    <a href="/privacy">Privacy</a>
+                    <a href="https://github.com/turalt/openmentor">Github</a><br>
+                    <a href="https://turalt.com/privacy">Privacy</a>
                   </p>
                 </div>
                 <div class="col-sm-4">
                   <h5>Products and services</h5>
                   <p>
-                    <a anchor-scroll-to="home#tools" href="#tools">Tools</a><br>
-                    <a anchor-scroll-to="home#training" href="#training">Training</a>
+                    <a href="https://turalt.com/#tools">Tools</a><br>
+                    <a href="https://turalt.com/#training">Training</a>
                   </p>
                 </div>
                 <div class="col-sm-4">
