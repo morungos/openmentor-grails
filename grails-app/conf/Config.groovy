@@ -94,18 +94,18 @@ log4j = {
 	info   'grails.app',
 	       'uk.org.openmentor'
 
-    warn   'grails.plugin',
-		   'grails.spring',
+  warn   'grails.plugin',
+	  	   'grails.spring',
 	       'org.apache',
 	       'org.springframework',
-		   'org.hibernate',
-           'org.eclipse'
+		     'org.hibernate',
+         'org.eclipse'
 
 	error  'net.sf.ehcache',
-		   'org.codehaus.groovy.grails',
-		   'org.springframework.aop',
-		   'grails.plugin.webxml',
-		   'org.grails.datastore.mapping'
+		     'org.codehaus.groovy.grails',
+		     'org.springframework.aop',
+		     'grails.plugin.webxml',
+		     'org.grails.datastore.mapping'
 }
 
 //grails.plugins.springsecurity.rejectIfNoRule = true

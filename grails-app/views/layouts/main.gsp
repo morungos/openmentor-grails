@@ -39,36 +39,46 @@
   <body>
 
     <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                  aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="${resource(dir:'/',file:'')}">OpenMentor</a>
-          <div class="nav-collapse collapse">
-            <p class="navbar-text pull-right">
-              <sec:ifLoggedIn>
-              Logged in as <sec:username/> (<g:link controller='logout' class='navbar-link'>Logout</g:link>)
-              </sec:ifLoggedIn>
-              <sec:ifNotLoggedIn>
-              <g:link controller='login' class='navbar-link'>Log in</g:link>
-              </sec:ifNotLoggedIn>
-            </p>
-            <ul class="nav">
-              <li class="active"><a href="${resource(dir:'/',file:'')}">Home</a></li>
-              <li><g:link action="index" controller="help">About</g:link></li>
-              <li><g:link action="contact" controller="help">Contact</g:link></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+          </button>
+          <a class="navbar-brand" href="${resource(dir:'/',file:'')}">OpenMentor</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="${resource(dir:'/',file:'')}">Home</a></li>
+            <li><g:link action="index" controller="help">About</g:link></li>
+            <li><g:link action="contact" controller="help">Contact</g:link></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <sec:ifLoggedIn>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                  aria-expanded="false">
+                  Logged in as <sec:username/> <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li><g:link controller='logout' class='navbar-link'>Logout</g:link></li>
+                </ul>
+              </li>
+            </sec:ifLoggedIn>
+            <sec:ifNotLoggedIn>
+              <li><g:link controller='login' class='navbar-link'>Log in</g:link></li>
+            </sec:ifNotLoggedIn>
+          </ul>
         </div>
       </div>
     </div>
 
     <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span3">
+      <div class="row">
+        <div class="col-md-3">
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <g:if test="${! session.current_course}">
@@ -116,20 +126,45 @@
               </ul>
           </div><!--/.well -->
         </div><!--/span-->
-        <div class="span9">
+        <div class="col-md-9">
           <g:layoutBody />
         </div><!--/span-->
       </div><!--/row-->
 
-      <hr>
-
-      <footer>
-        <p>
-        <small>OpenMentor version <g:meta name="app.version"/> (available from <a href="https://github.com/omtetra/openmentor-grails">Github</a>)
-        </small></p>
-      </footer>
-
     </div><!--/.fluid-container-->
+
+    <section id="footer" class="scroll-section footer-section">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                  <hr>
+                </div>
+            </div>
+            <div>
+                <div class="col-sm-4">
+                  <h5>turalt</h5>
+                  <p>
+                    Copyright &copy; 2015. All rights reserved<br>
+                    <a href="/privacy">Privacy</a>
+                  </p>
+                </div>
+                <div class="col-sm-4">
+                  <h5>Products and services</h5>
+                  <p>
+                    <a anchor-scroll-to="home#tools" href="#tools">Tools</a><br>
+                    <a anchor-scroll-to="home#training" href="#training">Training</a>
+                  </p>
+                </div>
+                <div class="col-sm-4">
+                  <h5>Contact us</h5>
+                  <p>
+                    Email: <a href="mailto:info@turalt.com">info@turalt.com</a><br>
+                    Tel: <a href="tel:+14165228287">416-522-8287</a>
+                  </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <div id="jqdialog"></div>
     <div id="postJQuery">
