@@ -15,35 +15,35 @@
               </div>
             </g:if>
             <form class="form-horizontal">
-              <div class="control-group  ${hasErrors(bean: assignmentInstance, field: 'courseId', 'error')}">
-                <label class="control-label" for="courseId"><g:message code="assignment.courseId.label" default="Course Code" />:</label>
-                <div class="controls">
+              <div class="form-group  ${hasErrors(bean: assignmentInstance, field: 'courseId', 'error')}">
+                <label class="control-label col-sm-2" for="courseId"><g:message code="assignment.courseId.label" default="Course Code" />:</label>
+                <div class="col-sm-10">
                   <g:textField name="courseId" value="${assignmentInstance.course.courseId}" readonly="readonly" />
                   <g:hasErrors bean="${assignmentInstance}" field="courseId">
                     <span class="help-inline"><g:renderErrors bean="${assignmentInstance.course}" as="list" field="courseId"/></span>
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group ${hasErrors(bean: assignmentInstance, field: 'code', 'error')}">
-                <label class="control-label" for="code"><g:message code="assignment.code.label" default="Assignment Code" />:</label>
-                <div class="controls">
+              <div class="form-group ${hasErrors(bean: assignmentInstance, field: 'code', 'error')}">
+                <label class="control-label col-sm-2" for="code"><g:message code="assignment.code.label" default="Assignment Code" />:</label>
+                <div class="col-sm-10">
                   <g:textField name="code" value="${assignmentInstance?.code}" readonly="readonly" />
                   <g:hasErrors bean="${assignmentInstance}" field="code">
                     <span class="help-inline"><g:renderErrors bean="${assignmentInstance}" as="list" field="code"/></span>
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group ${hasErrors(bean: assignmentInstance, field: 'title', 'error')}">
-                <label class="control-label" for="title"><g:message code="assignment.title.label" default="Assignment Title" />:</label>
-                <div class="controls">
+              <div class="form-group ${hasErrors(bean: assignmentInstance, field: 'title', 'error')}">
+                <label class="control-label col-sm-2" for="title"><g:message code="assignment.title.label" default="Assignment Title" />:</label>
+                <div class="col-sm-10">
                   <g:textField name="title" value="${assignmentInstance?.title}" readonly="readonly" />
                   <g:hasErrors bean="${assignmentInstance}" field="title">
                     <span class="help-inline"><g:renderErrors bean="${assignmentInstance}" as="list" field="title"/></span>
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group">
-                <div class="controls">
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
                   <sec:ifAnyGranted roles="MANAGE_COURSEINFO_ROLE">
                     <g:link class="edit btn btn-primary" name="edit" action="edit" id="${assignmentInstance?.code}">${message(code: 'default.button.edit.label', default: 'Edit')}</g:link>
                   </sec:ifAnyGranted>

@@ -16,20 +16,20 @@
               </div>
             </g:if>
             <form class="form-horizontal">
-              <div class="control-group">
-                <label class="control-label" for="courseId"><g:message code="course.courseId.label" default="Course Code" />:</label>
-                <div class="controls">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="courseId"><g:message code="course.courseId.label" default="Course Code" />:</label>
+                <div class="col-sm-10">
                   <g:textField name="courseId" value="${courseInstance?.courseId}" disabled="true" />
                 </div>
               </div>
-              <div class="control-group">
-                <label class="control-label" for="courseTitle"><g:message code="course.courseTitle.label" default="Course Title" />:</label>
-                <div class="controls">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="courseTitle"><g:message code="course.courseTitle.label" default="Course Title" />:</label>
+                <div class="col-sm-10">
                   <g:textField name="courseTitle" value="${courseInstance?.courseTitle}" disabled="true" />
                 </div>
               </div>
-              <div class="control-group">
-                <div class="controls">
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
                   <sec:ifAnyGranted roles="MANAGE_COURSEINFO_ROLE">
                     <g:link class="edit btn btn-primary" name="edit" action="edit" params="${[courseId: courseInstance?.courseId]}">${message(code: 'default.button.edit.label', default: 'Edit')}</g:link>
                   </sec:ifAnyGranted>

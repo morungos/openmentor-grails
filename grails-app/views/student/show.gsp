@@ -16,35 +16,35 @@
               </div>
             </g:if>
             <form class="form-horizontal">
-              <div class="control-group">
-                <label class="control-label" for="studentId"><g:message code="student.studentId.label" default="Student ID " />:</label>
-                <div class="controls">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="studentId"><g:message code="student.studentId.label" default="Student ID " />:</label>
+                <div class="col-sm-10">
                   <g:textField name="studentId" value="${studentInstance?.studentId}" disabled="true" readonly="true" />
                 </div>
               </div>
-              <div class="control-group">
-                <label class="control-label" for="givenName"><g:message code="student.givenName.label" default="Given Name" />:</label>
-                <div class="controls">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="givenName"><g:message code="student.givenName.label" default="Given Name" />:</label>
+                <div class="col-sm-10">
                   <g:textField name="givenName" value="${studentInstance?.givenName}" disabled="true" readonly="true" />
                 </div>
-              </div>              
-              <div class="control-group">
-                <label class="control-label" for="familyName"><g:message code="student.familyName.label" default="Family Name" />:</label>
-                <div class="controls">
+              </div>
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="familyName"><g:message code="student.familyName.label" default="Family Name" />:</label>
+                <div class="col-sm-10">
                   <g:textField name="familyName" value="${studentInstance?.familyName}" disabled="true" readonly="true" />
                 </div>
               </div>
-              <div class="control-group">
-                <label class="control-label" for="courses"><g:message code="student.courses.label" default="Courses" />:</label>
-                <div class="controls">
+              <div class="form-group">
+                <label class="control-label col-sm-2" for="courses"><g:message code="student.courses.label" default="Courses" />:</label>
+                <div class="col-sm-10">
                   <g:select id="courses" name="courses" optionKey="courseId" optionValue="courseId" multiple="${true}" class="chzn-select"
-                            from="${courseList}" 
+                            from="${courseList}"
                             value="${studentInstance?.courses}"
                             disabled="true" readonly="true"/>
                 </div>
               </div>
-              <div class="control-group">
-                <div class="controls">
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
                   <sec:ifAnyGranted roles="MANAGE_COURSEINFO_ROLE">
                     <g:link class="edit btn btn-primary" name="edit" action="edit" params="${[studentId: studentInstance?.studentId]}">${message(code: 'default.button.edit.label', default: 'Edit')}</g:link>
                   </sec:ifAnyGranted>

@@ -22,15 +22,15 @@
             </g:hasErrors>
 
             <g:uploadForm action="save" method="post" class="form-horizontal">
-              <div class="control-group  ${hasErrors(bean: cmd, field: 'courseId', 'errors')}">
-                <label class="control-label" for="courseId"><g:message code="course.courseId.label" default="Course ID" />:</label>
-                <div class="controls">
+              <div class="form-group  ${hasErrors(bean: cmd, field: 'courseId', 'errors')}">
+                <label class="control-label col-sm-2" for="courseId"><g:message code="course.courseId.label" default="Course ID" />:</label>
+                <div class="col-sm-10">
                   <g:textField name="courseId" class="form-control" value="${courseInstance.courseId}" readonly="readonly" />
                 </div>
               </div>
-              <div class="control-group ${hasErrors(bean: cmd, field: 'assignmentId', 'error')}">
-                <label class="control-label" for="assignment"><g:message code="assignment.label" default="Assignment" />:</label>
-                <div class="controls">
+              <div class="form-group ${hasErrors(bean: cmd, field: 'assignmentId', 'error')}">
+                <label class="control-label col-sm-2" for="assignment"><g:message code="assignment.label" default="Assignment" />:</label>
+                <div class="col-sm-10">
                   <g:select
                     noSelection="['':'-Choose assignment-']"
                     name="assignmentId"
@@ -43,9 +43,9 @@
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group ${hasErrors(bean: cmd, field: 'dataFile', 'error')}">
-                <label class="control-label" for="dataFile"><g:message code="assignment.dataFile.label" default="File" />:</label>
-                <div class="controls">
+              <div class="form-group ${hasErrors(bean: cmd, field: 'dataFile', 'error')}">
+                <label class="control-label col-sm-2" for="dataFile"><g:message code="assignment.dataFile.label" default="File" />:</label>
+                <div class="col-sm-10">
                   <input type="file" class="form-control" name="dataFile" id="file" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
                   <span class="help-block">Word files of all types are supported, maximum size is 16Mb</span>
                   <g:hasErrors bean="${cmd}" field="dataFile">
@@ -53,9 +53,9 @@
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group ${hasErrors(bean: cmd, field: 'grade', 'error')}">
-                <label class="control-label" for="grade"><g:message code="assignment.grade.label" default="Marks category given" />:</label>
-                <div class="controls">
+              <div class="form-group ${hasErrors(bean: cmd, field: 'grade', 'error')}">
+                <label class="control-label col-sm-2" for="grade"><g:message code="assignment.grade.label" default="Marks category given" />:</label>
+                <div class="col-sm-10">
                   <g:select
                     noSelection="['':'-Choose grade-']"
                     class="form-control"
@@ -67,9 +67,9 @@
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group ${hasErrors(bean: cmd, field: 'tutorIds', 'error')}">
-                <label class="control-label" for="tutorIds"><g:message code="default.tutor.label" default="Tutor" />:</label>
-                <div class="controls">
+              <div class="form-group ${hasErrors(bean: cmd, field: 'tutorIds', 'error')}">
+                <label class="control-label col-sm-2" for="tutorIds"><g:message code="default.tutor.label" default="Tutor" />:</label>
+                <div class="col-sm-10">
                   <g:select
                     noSelection="['':'-Choose tutor-']"
                     name="tutorIds"
@@ -83,13 +83,13 @@
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group ${hasErrors(bean: cmd, field: 'studentIds', 'error')}">
-                <label class="control-label" for="studentIds"><g:message code="default.student.label" default="Student" />:</label>
-                <div class="controls">
+              <div class="form-group ${hasErrors(bean: cmd, field: 'studentIds', 'error')}">
+                <label class="control-label col-sm-2" for="studentIds"><g:message code="default.student.label" default="Student" />:</label>
+                <div class="col-sm-10">
                   <g:select
 	                 noSelection="['':'-Choose student-']"
 	                 name="studentIds"
-                   class="form-control" 
+                   class="form-control"
 	                 from="${courseInstance.students}"
 	                 value="${cmd?.studentIds}"
 	                 optionKey="studentId"
@@ -99,8 +99,8 @@
                   </g:hasErrors>
                 </div>
               </div>
-              <div class="control-group">
-                <div class="controls">
+              <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
                   <g:submitButton class="save btn btn-primary" name="upload" value="${message(code: 'default.button.upload.label', default: 'Upload')}" />
                 </div>
               </div>
