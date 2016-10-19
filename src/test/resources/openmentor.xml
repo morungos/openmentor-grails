@@ -45,7 +45,7 @@
     </Call>
 
     <New id="webapp" class="org.eclipse.jetty.webapp.WebAppContext">
-    		<Set name="contextPath">/</Set>
+    		<Set name="contextPath">/openmentor</Set>
 
     		<!-- The scratch directory -->
 

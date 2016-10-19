@@ -63,7 +63,7 @@ grails.config.locations = [
 // set per-environment serverURL stem for creating absolute links
 environments {
     production {
-        grails.serverURL = "http://localhost:8080"
+        grails.serverURL = "https://turalt.com/${appName}"
     }
     development {
         grails.serverURL = "http://localhost:8080/${appName}"

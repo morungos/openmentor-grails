@@ -26,17 +26,17 @@ grails.project.dependency.resolution = {
         // specify dependencies here under either 'build', 'compile', 'runtime', 'test' or 'provided' scopes eg.
 
         runtime 'mysql:mysql-connector-java:5.1.27'
-		
-		compile 'org.apache.poi:poi:3.9'
-		compile 'org.apache.poi:poi-scratchpad:3.9'
-		compile 'org.apache.poi:poi-ooxml:3.9'
+
+    		compile 'org.apache.poi:poi:3.9'
+    		compile 'org.apache.poi:poi-scratchpad:3.9'
+    		compile 'org.apache.poi:poi-ooxml:3.9'
         compile 'org.apache.commons:commons-compress:1.5'
-		compile 'org.htmlparser:htmlparser:1.6'
-        
-		test    'org.gmock:gmock:0.8.2'
+    		compile 'org.htmlparser:htmlparser:1.6'
+
+    		test    'org.gmock:gmock:0.8.2'
     }
+
     plugins {
-		compile ':cloud-foundry:1.2.3'
         runtime ":hibernate:$grailsVersion"
         build ':jetty:2.0.3'
         compile ":webxml:1.4.1"
