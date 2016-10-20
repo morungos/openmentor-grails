@@ -1,0 +1,15 @@
+---
+- name: MySQL | Set MySQL root password before installing
+  debconf: name='mysql-server' question='mysql-server/root_password' value='{{ mysql_root_password }}' vtype='password'
+  when: ansible_os_family == "Debian"
+
+- name: MySQL | Re-enter MySQL root password before installing
+  debconf: name='mysql-server' question='mysql-server/root_password_again' value='{{ mysql_root_password }}' vtype='password'
+  when: ansible_os_family == "Debian"
+
+- name: MySQL | Install MySQL
+  apt: name={{ item }} update_cache=yes cache_valid_time=3600 state=present
+  when: ansible_os_family == "Debian"
+  with_items:
+  - python-mysqldb
+  - mysql-server

@@ -1,0 +1,27 @@
+---
+- name: Webapp | Create directories
+  shell: mkdir -p {{ item.path }} creates={{ item.path }}
+  with_items:
+    - { path: '{{webapp_directory}}' }
+
+# - name: Webapp | Get release files
+#   get_url:
+#     url: "{{item.url}}"
+#     dest: "{{item.dest}}"
+#     sha256sum: "{{item.sha256sum}}"
+#   with_items:
+#     - { url: "{{openmentor_release}}", dest: "{{webapp_directory}}/{{webapp_name}}-{{webapp_version}}.war", sha256sum: "{{openmentor_release_checksum}}" }
+
+- name: Webapp | Get release files
+  copy:
+    src: 'target/{{webapp_name}}-{{webapp_version}}.war'
+    dest: "{{webapp_directory}}/{{webapp_name}}-{{webapp_version}}.war"
+
+- name: Webapp | Get release files
+  get_url:
+    url: "{{item.url}}"
+    dest: "{{item.dest}}"
+    sha256sum: "{{item.sha256sum}}"
+  when: install_service or deploy_standalone
+  with_items:
+    - { url: "{{java_server_release}}", dest: "{{webapp_directory}}/java-server-{{java_server_version}}.jar", sha256sum: "{{java_server_release_checksum}}" }

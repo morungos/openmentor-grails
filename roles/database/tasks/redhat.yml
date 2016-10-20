@@ -1,0 +1,21 @@
+---
+## Download and install the DB server for RedHat
+- name: MySQL | Get yum repository package
+  get_url:
+    url: http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
+    dest: mysql-community-release-el6-5.noarch.rpm
+  when: ansible_os_family == "RedHat"
+
+- name: MySQL | Add yum repository
+  command: rpm -Uvh mysql-community-release-el6-5.noarch.rpm
+  when: ansible_os_family == "RedHat"
+
+- name: MySQL | Install MySQL
+  yum:
+    name: mysql-community-server
+  when: ansible_os_family == "RedHat"
+
+- name: MySQL | Get current root password
+  command: grep 'temporary password' /var/log/mysqld.log
+  register: redhat_mysql_root_password
+  when: ansible_os_family == "RedHat"

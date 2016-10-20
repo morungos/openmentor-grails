@@ -1,0 +1,58 @@
+---
+- name: Webserver | Installing packages
+  apt: pkg={{ item.package }} state=present update_cache=yes cache_valid_time=3600
+  with_items:
+    - { package: 'daemon' }
+    - { package: 'nginx' }
+    - { package: 'ssl-cert' }
+
+## We start with an initial certificate and private key, as much so we can spin
+## up nginx as anything. This will be overwritten when we get a real key from
+## somewhere. These are essentially crap and unsigned, taken from default
+## distributions, so we don't care about their security.
+
+- name: Webserver | Copy the initial certificate
+  copy:
+    src: 'certificate.crt'
+    dest: "/etc/ssl/certs/{{webapp_service_name}}.crt"
+    owner: root
+    group: root
+    force: no
+
+- name: Webserver | Copy the initial private key
+  copy:
+    src: 'private-key.key'
+    dest: "/etc/ssl/private/{{webapp_service_name}}.key"
+    owner: root
+    group: root
+    mode: 0600
+    force: no
+
+## And also the Diffie Hellman parameters
+
+- name: Webserver | Copy the dhparams
+  copy:
+    content: "{{ dh_params }}"
+    dest: "/etc/ssl/private/dhparams.pem"
+    owner: root
+    group: root
+    mode: 0600
+
+## Ansible resolves the path relative to the roles/<rolename>/files directory
+- name: Webserver | Copy configuration
+  template:
+    src: "nginx-config.j2"
+    dest: "/etc/nginx/sites-available/{{webapp_service_name}}"
+  notify:
+    - restart nginx
+
+- name: Webserver | Remove default nginx site
+  file: state=absent path=/etc/nginx/sites-enabled/default
+
+- name: Webserver | Make nginx site link
+  file: state=link src=/etc/nginx/sites-available/{{webapp_service_name}} dest=/etc/nginx/sites-enabled/{{webapp_service_name}}
+  notify:
+    - restart nginx
+
+- name: Webserver | ensure nginx is running
+  service: name=nginx state=started

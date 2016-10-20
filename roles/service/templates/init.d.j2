@@ -1,0 +1,115 @@
+#!/bin/bash
+#
+# An init.d script for running a process.
+# This was written for Debian distributions such as Ubuntu, but should still
+# work on RedHat, Fedora, or other RPM-based distributions, since none of the
+# built-in service functions are used. So information is provided for both.
+#
+### BEGIN INIT INFO
+# Provides:             {{webapp_service_name}}
+# Required-Start:       $syslog $remote_fs
+# Required-Stop:        $syslog $remote_fs
+# Should-Start:         $local_fs
+# Should-Stop:          $local_fs
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    {{webapp_service_name}} web application
+# Description:          {{webapp_service_name}} web application
+### END INIT INFO
+#
+### BEGIN CHKCONFIG INFO
+# chkconfig: 2345 55 25
+# description: {{webapp_service_name}}
+### END CHKCONFIG INFO
+
+START_SCRIPT=java
+PID_FILE={{webapp_pid_directory}}/{{webapp_service_name}}.pid
+
+ARGS="-jar {{webapp_directory}}/java-server-{{java_server_version}}.jar"
+DAEMON=$START_SCRIPT
+
+# ***********************************************
+# ***********************************************
+
+# colors
+red='\e[0;31m'
+green='\e[0;32m'
+yellow='\e[0;33m'
+reset='\e[0m'
+
+echoRed() { echo -e "${red}$1${reset}"; }
+echoGreen() { echo -e "${green}$1${reset}"; }
+echoYellow() { echo -e "${yellow}$1${reset}"; }
+
+start() {
+  PID=`$DAEMON $ARGS > /dev/null 2>&1 & echo $!`
+}
+
+case "$1" in
+start)
+    if [ -f $PID_FILE ]; then
+        PID=`cat $PID_FILE`
+        if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
+            start
+        else
+            echoYellow "Already running [$PID]"
+            exit 0
+        fi
+    else
+        start
+    fi
+
+    if [ -z $PID ]; then
+        echoRed "Failed starting"
+        exit 3
+    else
+        echo $PID > $PID_FILE
+        echoGreen "Started [$PID]"
+        exit 0
+    fi
+;;
+
+status)
+    if [ -f $PID_FILE ]; then
+        PID=`cat $PID_FILE`
+        if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
+            echoRed "Not running (process dead but pidfile exists)"
+            exit 1
+        else
+            echoGreen "Running [$PID]"
+            exit 0
+        fi
+    else
+        echoRed "Not running"
+        exit 3
+    fi
+;;
+
+stop)
+    if [ -f $PID_FILE ]; then
+        PID=`cat $PID_FILE`
+        if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
+            echoRed "Not running (process dead but pidfile exists)"
+            exit 1
+        else
+            PID=`cat $PID_FILE`
+            kill -HUP $PID
+            echoGreen "Stopped [$PID]"
+            rm -f $PID_FILE
+            exit 0
+        fi
+    else
+        echoRed "Not running (pid not found)"
+        exit 3
+    fi
+;;
+
+restart)
+    $0 stop
+    $0 start
+;;
+
+*)
+    echo "Usage: $0 {status|start|stop|restart}"
+    exit 1
+esac

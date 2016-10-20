@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: True
+  tasks:
+    - name: 'setup'
+      setup:
+        filter: '*'
+
+- hosts: all
+  become: True
+  roles:
+    - { role: database, tags: [ 'database' ], when: install_database }
+    - { role: java, tags: [ 'java' ], when: install_java }
+    - { role: webserver, tags: [ 'webserver' ] }
+    # - { role: letsencrypt, tags: [ 'letsencrypt' ] }
+    - { role: webapp, tags: [ 'webapp' ] }
+    - { role: service, tags: [ 'webapp' ], when: install_service }
+  vars_files:
+    - vars/secure_vars.yml

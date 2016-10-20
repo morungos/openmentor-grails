@@ -1,0 +1,17 @@
+---
+- name: SSL | Install curl
+  apt:
+    pkg: curl
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_os_family == "Debian"
+
+- name: SSL | Install acme.sh
+  shell: curl https://get.acme.sh | sh
+
+- name: SSL | Verify and issue the certificate
+  command: /root/.acme.sh/acme.sh --issue -d {{webapp_domain}} -w /var/www/html
+
+- name: SSL | Deploy the certificates appropriately
+  command: /root/.acme.sh/acme.sh --installcert -d {{webapp_domain}} --keypath /etc/ssl/private/{{webapp_service_name}}.key --fullchainpath /etc/ssl/certs/{{webapp_service_name}}.crt --reloadcmd  "service nginx reload"

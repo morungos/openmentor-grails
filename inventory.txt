@@ -1,0 +1,7 @@
+## For testing, use a local host name, which isn't localhost to avoid issues
+## with other deployment hackery.
+## =============================================================================
+## Deploy: ansible-playbook -v -i inventory.txt --limit samwise deploy.yml
+
+[openmentor]
+virtualbox             ansible_connection=ssh
