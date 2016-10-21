@@ -1,10 +1,5 @@
 #!/bin/bash
-#
-# An init.d script for running a process.
-# This was written for Debian distributions such as Ubuntu, but should still
-# work on RedHat, Fedora, or other RPM-based distributions, since none of the
-# built-in service functions are used. So information is provided for both.
-#
+
 ### BEGIN INIT INFO
 # Provides:             {{webapp_service_name}}
 # Required-Start:       $syslog $remote_fs
@@ -16,20 +11,58 @@
 # Short-Description:    {{webapp_service_name}} web application
 # Description:          {{webapp_service_name}} web application
 ### END INIT INFO
+
+###
+# chkconfig: 345 20 80
+# description: cBioPortal
+# processname: java
 #
-### BEGIN CHKCONFIG INFO
-# chkconfig: 2345 55 25
-# description: {{webapp_service_name}}
-### END CHKCONFIG INFO
+# Installation (CentOS):
+# copy file to /etc/init.d
+# chmod +x /etc/init.d/{{webapp_service_name}}
+# chkconfig --add /etc/init.d/{{webapp_service_name}}
+# chkconfig {{webapp_service_name}} on
+#
+# Installation (Ubuntu):
+# copy file to /etc/init.d
+# chmod +x /etc/init.d/{{webapp_service_name}}
+# update-rc.d {{webapp_service_name}} defaults
+#
+#
+# Usage: (as root)
+# service {{webapp_service_name}} start
+# service {{webapp_service_name}} stop
+# service {{webapp_service_name}} status
+#
+###
 
-START_SCRIPT=java
-PID_FILE={{webapp_pid_directory}}/{{webapp_service_name}}.pid
-
-ARGS="-jar {{webapp_directory}}/java-server-{{java_server_version}}.jar"
-DAEMON=$START_SCRIPT
+# The directory in which your application is installed
+APPLICATION_DIR="{{webapp_directory}}"
+# The fat jar containing your application
+APPLICATION_JAR="{{jetty_target}}"
+# The application argument such as -cluster -cluster-host ...
+APPLICATION_ARGS="{{webapp_directory}}/openmentor.xml"
+# cBioPortal options and system properties (-Dfoo=bar).
+APPLICATION_OPTS=""
+# cBioPortal home
+PORTAL_HOME="{{webapp_directory}}"
+# Java
+JAVA=java
 
 # ***********************************************
+OUT_FILE={{webapp_log_directory}}/out.log
+RUNNING_PID={{webapp_pid_directory}}/openmentor.pid
 # ***********************************************
+
+## Create the {{webapp_pid_directory}} dir if necessary
+## This is because /var/run on some systems is removed on
+## boot, so the directory for the pid file might not exist.
+
+if [ ! -d {{webapp_pid_directory}} ]; then
+    mkdir {{webapp_pid_directory}}
+    chmod 0755 {{webapp_pid_directory}}
+    chown {{webapp_service_user}} {{webapp_pid_directory}}
+fi
 
 # colors
 red='\e[0;31m'
@@ -41,72 +74,86 @@ echoRed() { echo -e "${red}$1${reset}"; }
 echoGreen() { echo -e "${green}$1${reset}"; }
 echoYellow() { echo -e "${yellow}$1${reset}"; }
 
+# Check whether the application is running.
+# The check is pretty simple: open a running pid file and check that the process
+# is alive.
+isrunning() {
+  # Check for running app
+  if [ -f "$RUNNING_PID" ]; then
+    proc=$(cat $RUNNING_PID);
+    if /bin/ps --pid $proc 1>&2 >/dev/null;
+    then
+      return 0
+    fi
+  fi
+  return 1
+}
+
 start() {
-  PID=`$DAEMON $ARGS > /dev/null 2>&1 & echo $!`
+  if isrunning; then
+    echoYellow "openmentor is already running"
+    return 0
+  fi
+
+  pushd $APPLICATION_DIR > /dev/null
+  nohup $JAVA $APPLICATION_OPTS -jar $APPLICATION_JAR $APPLICATION_ARGS > $OUT_FILE 2>&1 &
+  echo $! > ${RUNNING_PID}
+  popd > /dev/null
+
+  if isrunning; then
+    echoGreen "openmentor started"
+    exit 0
+  else
+    echoRed "openmentor has not started - check log"
+    exit 3
+  fi
+}
+
+restart() {
+  echo "Restarting openmentor"
+  stop
+  start
+}
+
+stop() {
+  echoYellow "Stopping openmentor"
+  if isrunning; then
+    kill `cat $RUNNING_PID`
+    rm $RUNNING_PID
+  fi
+}
+
+status() {
+  if isrunning; then
+    echoGreen "openmentor is running"
+  else
+    echoRed "openmentor is either stopped or inaccessible"
+  fi
 }
 
 case "$1" in
 start)
-    if [ -f $PID_FILE ]; then
-        PID=`cat $PID_FILE`
-        if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
-            start
-        else
-            echoYellow "Already running [$PID]"
-            exit 0
-        fi
-    else
-        start
-    fi
-
-    if [ -z $PID ]; then
-        echoRed "Failed starting"
-        exit 3
-    else
-        echo $PID > $PID_FILE
-        echoGreen "Started [$PID]"
-        exit 0
-    fi
+    start
 ;;
 
 status)
-    if [ -f $PID_FILE ]; then
-        PID=`cat $PID_FILE`
-        if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
-            echoRed "Not running (process dead but pidfile exists)"
-            exit 1
-        else
-            echoGreen "Running [$PID]"
-            exit 0
-        fi
-    else
-        echoRed "Not running"
-        exit 3
-    fi
+   status
+   exit 0
 ;;
 
 stop)
-    if [ -f $PID_FILE ]; then
-        PID=`cat $PID_FILE`
-        if [ -z "`ps axf | grep ${PID} | grep -v grep`" ]; then
-            echoRed "Not running (process dead but pidfile exists)"
-            exit 1
-        else
-            PID=`cat $PID_FILE`
-            kill -HUP $PID
-            echoGreen "Stopped [$PID]"
-            rm -f $PID_FILE
-            exit 0
-        fi
+    if isrunning; then
+	stop
+	exit 0
     else
-        echoRed "Not running (pid not found)"
-        exit 3
+	echoRed "openmentor not running"
+	exit 3
     fi
 ;;
 
 restart)
-    $0 stop
-    $0 start
+    stop
+    start
 ;;
 
 *)

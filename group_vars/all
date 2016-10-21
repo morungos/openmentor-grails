@@ -13,6 +13,8 @@ openmentor_release_checksum: '0bceca4ef15216c3d84e5a262b727b847c52a0e7d00defd8a8
 java_server_release: 'https://github.com/pughlab/java-server/releases/download/java-server-{{java_server_version}}/java-server-{{java_server_version}}.jar'
 java_server_release_checksum: '0bceca4ef15216c3d84e5a262b727b847c52a0e7d00defd8a80a09418e53ec2b'
 
+jetty_target: '{{webapp_directory}}/java-server-{{java_server_version}}.jar'
+
 java_executable: 'java'
 
 ## Default locations
