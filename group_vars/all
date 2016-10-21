@@ -20,7 +20,7 @@ java_executable: 'java'
 ## Default locations
 
 webapp_service_name: '{{webapp_name}}'
-webapp_directory: '/usr/lib/{{webapp_service_name}}'
+webapp_directory: '/usr/share/{{webapp_service_name}}'
 webapp_log_directory: '/var/log/{{webapp_service_name}}'
 webapp_pid_directory: '/var/run/{{webapp_service_name}}'
 

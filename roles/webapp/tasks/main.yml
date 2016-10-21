@@ -3,6 +3,7 @@
   shell: mkdir -p {{ item.path }} creates={{ item.path }}
   with_items:
     - { path: '{{webapp_directory}}' }
+    - { path: '/etc/openmentor' }
 
 # - name: Webapp | Get release files
 #   get_url:
@@ -16,6 +17,11 @@
   copy:
     src: 'target/{{webapp_name}}-{{webapp_version}}.war'
     dest: "{{webapp_directory}}/{{webapp_name}}-{{webapp_version}}.war"
+
+- name: Webapp | Get config files
+  template:
+    src: 'openmentor-config.groovy.j2'
+    dest: "/etc/openmentor/openmentor-config.groovy"
 
 - name: Webapp | Get release files
   get_url:
