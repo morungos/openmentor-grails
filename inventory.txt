@@ -4,4 +4,4 @@
 ## Deploy: ansible-playbook -v -i inventory.txt --limit samwise deploy.yml
 
 [openmentor]
-virtualbox             ansible_connection=ssh
+openmentor.turalt.com             ansible_connection=ssh
